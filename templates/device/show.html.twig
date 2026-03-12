@@ -35,8 +35,19 @@
                 <th>Note</th>
                 <td>{{ device.Note }}</td>
             </tr>
+            <tr>
+                <th>Aplikace</th>
+                <td>
+                    {% for application in device.applications %}
+                        {{application.name}}
+                    {% else %}
+                        Žádné aplikace přiřazené nejsou
+                    {%endfor%}
+                </td>
+            </tr>
         </tbody>
     </table>
+
 
     {{ include('device/_delete_form.html.twig') }}
 
