@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\DeviceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: DeviceRepository::class)]
 class Device
@@ -23,13 +25,13 @@ class Device
     #[ORM\Column(length: 255)]
     private ?string $serialNumber = null;
 
-    #[ORM\Column]
-    private ?int $phoneNumber = null;
+    #[ORM\Column(length: 50)]
+    private ?string $phoneNumber = null;
 
     #[ORM\Column(length: 255)]
     private ?string $googleAccount = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $note = null;
 
     #[ORM\Column(length: 255)]
@@ -43,6 +45,7 @@ class Device
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $lastUpd = null;
+
 
     public function getId(): ?int
     {
@@ -85,7 +88,7 @@ class Device
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
     }
@@ -172,6 +175,35 @@ class Device
     public function __toString(): string
     {
         return $this->brand . ' - ' . $this->imei;
+    }
+
+    #[ORM\ManyToMany(targetEntity: Application::class)]
+    private Collection $applications;
+
+    public function __construct()
+    {
+        $this->applications = new ArrayCollection();
+    }
+
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): static
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications->add($application);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): static
+    {
+        $this->applications->removeElement($application);
+
+        return $this;
     }
 
    }

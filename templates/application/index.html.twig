@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aplikace{% endblock %}
+
+{% block body %}
+    <h1>Aplikace</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Název</th>
+                <th>Technický název</th>
+                <th>poznámka</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for application in applications %}
+            <tr>
+                <td>{{ application.id }}</td>
+                <td>{{ application.name }}</td>
+                <td>{{ application.packageName }}</td>
+                <td>{{ application.note }}</td>
+                <td>
+                    <a href="{{ path('app_application_show', {'id': application.id}) }}">Detail</a>
+                    <a href="{{ path('app_application_edit', {'id': application.id}) }}">Úprava</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Žádná aplikace není přidaná</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_application_new') }}">Vytvořit novou aplikaci</a>
+{% endblock %}
