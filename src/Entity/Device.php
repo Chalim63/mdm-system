@@ -15,22 +15,34 @@ class Device
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Brand = null;
+    private ?string $brand = null;
 
     #[ORM\Column(type: Types::BIGINT)]
-    private ?string $IMEI = null;
+    private ?string $imei = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $SN = null;
+    private ?string $serialNumber = null;
 
     #[ORM\Column]
-    private ?int $PN = null;
+    private ?int $phoneNumber = null;
 
     #[ORM\Column(length: 255)]
     private ?string $googleAccount = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Note = null;
+    private ?string $note = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $assignedTo = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $lastUpd = null;
 
     public function getId(): ?int
     {
@@ -39,48 +51,48 @@ class Device
 
     public function getBrand(): ?string
     {
-        return $this->Brand;
+        return $this->brand;
     }
 
-    public function setBrand(string $Brand): static
+    public function setBrand(string $brand): static
     {
-        $this->Brand = $Brand;
+        $this->brand = $brand;
 
         return $this;
     }
 
     public function getIMEI(): ?string
     {
-        return $this->IMEI;
+        return $this->imei;
     }
 
-    public function setIMEI(string $IMEI): static
+    public function setIMEI(string $imei): static
     {
-        $this->IMEI = $IMEI;
+        $this->imei = $imei;
 
         return $this;
     }
 
-    public function getSN(): ?string
+    public function getSerialNumber(): ?string
     {
-        return $this->SN;
+        return $this->serialNumber;
     }
 
-    public function setSN(string $SN): static
+    public function setSerialNumber(string $serialNumber): static
     {
-        $this->SN = $SN;
+        $this->serialNumber = $serialNumber;
 
         return $this;
     }
 
-    public function getPN(): ?int
+    public function getPhoneNumber(): ?int
     {
-        return $this->PN;
+        return $this->phoneNumber;
     }
 
-    public function setPN(int $PN): static
+    public function setPhoneNumber(int $phoneNumber): static
     {
-        $this->PN = $PN;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
@@ -99,13 +111,67 @@ class Device
 
     public function getNote(): ?string
     {
-        return $this->Note;
+        return $this->note;
     }
 
-    public function setNote(string $Note): static
+    public function setNote(string $note): static
     {
-        $this->Note = $Note;
+        $this->note = $note;
 
         return $this;
     }
-}
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getAssignedTo(): ?string
+    {
+        return $this->assignedTo;
+    }
+
+    public function setAssignedTo(string $assignedTo): static
+    {
+        $this->assignedTo = $assignedTo;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getLastUpd(): ?\DateTimeImmutable
+    {
+        return $this->lastUpd;
+    }
+
+    public function setLastUpd(\DateTimeImmutable $lastUpd): static
+    {
+        $this->lastUpd = $lastUpd;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->brand . ' - ' . $this->imei;
+    }
+
+   }

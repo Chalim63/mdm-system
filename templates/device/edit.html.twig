@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Úprava zařízení{% endblock %}
+
+{% block body %}
+    <h1>Úprava zařízení</h1>
+
+    {{ include('device/_form.html.twig', {'button_label': 'Úprava'}) }}
+
+    {{ include('device/_delete_form.html.twig') }}
+
+    <a href="{{ path('app_device_index') }}">Zpět na seznam zařízení</a>
+
+    
+{% endblock %}

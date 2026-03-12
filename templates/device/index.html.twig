@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Seznam zařízení{% endblock %}
+
+{% block body %}
+    <h1>Seznam zařízení</h1>
+
+    <form method="get" style="margin-bottom: 20px;">
+        <input
+            type="text"
+            name="q"
+            value="{{ search }}"
+            placeholder="Hledat podle značky, IMEI, SN, PN nebo Google účtu"
+        >
+        <button type="submit">Hledat</button>
+        <a href="{{ path('app_device_index') }}">Reset</a>
+    </form>
+
+    <p>
+        <a href={{ path('app_device_new') }}>Přidat nové zařízení</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a href="{{ path('app_device_index', {
+                        q: search,
+                        sort: 'id',
+                        direction: sort == 'id' and direction == 'asc' ? 'desc' : 'asc'
+                    }) }}">ID</a>
+                </th>
+                <th>
+                    <a href="{{ path('app_device_index', {
+                        q: search,
+                        sort: 'brand',
+                        direction: sort == 'brand' and direction == 'asc' ? 'desc' : 'asc'
+                    }) }}">Značka</a>
+                </th>
+                <th>
+                    <a href="{{ path('app_device_index', {
+                        q: search,
+                        sort: 'imei',
+                        direction: sort == 'imei' and direction == 'asc' ? 'desc' : 'asc'
+                    }) }}">IMEI</a>
+                </th>
+                <th>
+                    <a href="{{ path('app_device_index', {
+                        q: search,
+                        sort: 'serialNumber',
+                        direction: sort == 'serialNumber' and direction == 'asc' ? 'desc' : 'asc'
+                    }) }}">Sériové číslo</a>
+                </th>
+                <th>
+                    <a href="{{ path('app_device_index', {
+                        q: search,
+                        sort: 'phoneNumber',
+                        direction: sort == 'phoneNumber' and direction == 'asc' ? 'desc' : 'asc'
+                    }) }}">Telefonní číslo</a>
+                </th>
+                <th>
+                    <a href="{{ path('app_device_index', {
+                        q: search,
+                        sort: 'googleAccount',
+                        direction: sort == 'googleAccount' and direction == 'asc' ? 'desc' : 'asc'
+                    }) }}">Google účet</a>
+                </th>
+                <th>Poznámka</th>
+                <th>Přiřazeno</th>
+                <th>
+                    <a href="{{ path('app_device_index', {
+                        q: search,
+                        sort: 'createdAt',
+                        direction: sort == 'createdAt' and direction == 'asc' ? 'desc' : 'asc'
+                    }) }}">Datum aktivace</a>
+                </th>
+                <th>
+                    <a href="{{ path('app_device_index', {
+                        q: search,
+                        sort: 'lastUpd',
+                        direction: sort == 'lastUpd' and direction == 'asc' ? 'desc' : 'asc'
+                    }) }}">Datum aktualizace</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for device in devices %}
+            <tr>
+                <td>{{ device.id }}</td>
+                <td>{{ device.brand }}</td>
+                <td>{{ device.imei }}</td>
+                <td>{{ device.serialNumber }}</td>
+                <td>{{ device.phoneNumber }}</td>
+                <td>{{ device.googleAccount }}</td>
+                <td>{{ device.note }}</td>
+                <td>{{ device.assignedTo }}</td>
+                <td>{{ device.createdAt|date('d.m.Y H:i') }}</td>
+                <td>{{ device.lastUpd|date('d.m.Y H:i') }}</td>
+                <td>
+                    <a href="{{ path('app_device_show', {'id': device.id}) }}">Detail</a>
+                    <a href="{{ path('app_device_edit', {'id': device.id}) }}">Upravit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Zatím není přidané žádné zařízení</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
