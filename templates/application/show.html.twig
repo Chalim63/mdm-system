@@ -23,6 +23,24 @@
                 <th>Note</th>
                 <td>{{ application.note }}</td>
             </tr>
+            <tr>
+                <th>Zařízení</th>
+                    <td>
+                        {% if application.devices|length > 0 %}
+                        <ul>
+                            {% for device in application.devices %}
+                                <li>
+                                    <a href="{{ path('app_device_show', {'id': device.id}) }}">
+                                    {{ device.brand }} - {{ device.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        Žádné přiřazené zařízení
+                    {% endif %}
+                    </td>
+            </tr>
         </tbody>
     </table>
 
